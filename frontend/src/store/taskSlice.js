@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import Config from "../config/config";
 import axios from "axios";
 
 export const STATUSES = Object.freeze({
@@ -10,11 +11,31 @@ const initialState = {
     task: [],
     status: STATUSES.IDLE
 }
+export const fetchTasks = createAsyncThunk('tasks/get', async (_, { rejectWithValue }) => {
+    try {
+        const response = await axios.get(`${Config.BACKEND_URL}/api/v1/taskhub/`);
+        return response.data;
+    } catch (error) {
+        // Log error to the console
+        console.error("Failed to fetch tasks:", error);
+        // Return a rejected action with the error
+        return rejectWithValue(error.response ? error.response.data : error.message);
+    }
+});
 const taskSlice = createSlice({
     name: 'task',
     initialState,
-    reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(fetchTasks.pending, (state, action) => {
+            state.status = STATUSES.LOADING;
+        });
+        builder.addCase(fetchTasks.fulfilled, (state, action) => {
+            state.task = action.payload;
+            state.status = STATUSES.IDLE;
+        });
+        builder.addCase(fetchTasks.rejected, (state, action) => {
+            state.status = STATUSES.ERROR;
+        })
 
     }
 })
