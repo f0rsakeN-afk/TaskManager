@@ -12,20 +12,20 @@ const TaskTiles = () => {
   }, [dispatch]);
 
   const res = useSelector((state) => state.task);
-console.log(res);
+  //console.log(res);
   const status = res.status;
   if (status === STATUSES.LOADING) return <Spinner />;
 
   const task = res?.task?.data?.tasks;
-  console.log(task);
+  // console.log(task);
 
   return (
-    <div className="container m-auto pt-4">
-      <div className="grid grid-cols-4 gap-4">
+    <div className="container m-auto pt-4 px-2 xl:px-0 ">
+      <div className="grid grid-cols-3 xl:grid-cols-4 gap-4">
         {task?.map((t) => (
           <Task t={t} key={t._id} />
         ))}
-        <CreateButton/>
+        <CreateButton />
       </div>
     </div>
   );
