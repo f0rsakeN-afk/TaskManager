@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { createTask } from "../store/taskSlice";
+
 
 const CreateTask = () => {
   const {
@@ -10,11 +9,10 @@ const CreateTask = () => {
     formState: { errors },
   } = useForm();
 
-  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     //console.log(data);
-    dispatch(createTask(data));
+    
   };
 
   return (

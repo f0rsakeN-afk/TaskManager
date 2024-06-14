@@ -1,32 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { STATUSES, fetchTasks } from "../store/taskSlice";
+import React from "react";
 import Spinner from "./Spinner";
 import Task from "./Task";
 import CreateButton from "./CreateButton";
+import { getTodos } from "../services/Todo";
 
 const TaskTiles = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchTasks());
-  }, [dispatch]);
-
-  const res = useSelector((state) => state.task);
-  //console.log(res);
-  const status = res.status;
-  if (status === STATUSES.LOADING) return <Spinner />;
-
-  const task = res?.task?.data?.tasks;
-  // console.log(task);
-
+  const { isLoading, Todos, error } = getTodos();
+  
   return (
-    <div className="container m-auto pt-4 px-2 xl:px-0 ">
-      <div className="grid grid-cols-3 xl:grid-cols-4 gap-4">
-        {task?.map((t) => (
-          <Task t={t} key={t._id} />
-        ))}
-        <CreateButton />
-      </div>
+    <div className="container m-auto px-2 pt-4 xl:px-0 ">
+      <div className="grid grid-cols-3 gap-4 xl:grid-cols-4">csd</div>
     </div>
   );
 };
