@@ -68,9 +68,26 @@ export function deleteTodo() {
     return { isDeleting, delet }
 }
 
+
+
+//GET SINGLE TODO
+const getSingleTodoAPI = async (id) => {
+    const response = await axios.get(`${Config.BACKEND_URL}/api/v1/taskhub/${id}`);
+    return response.data;
+}
+
+export function getSingleTodo(id) {
+    const { isLoading, data: singleTodo, error } = useQuery({
+        queryKey: ['todo', id],
+        queryFn: () => getSingleTodoAPI(id)
+    })
+    return { isLoading, singleTodo }
+}
+
+
 //EDITING TODOS
-const editTodoAPI = async (data) => {
-    const response = await axios.patch(`${Config.BACKEND_URL}`);
+const editTodoAPI = async ({ id, data }) => {
+    const response = await axios.patch(`${Config.BACKEND_URL}/api/v1/taskhub/${id}`, data);
     return response.data;
 }
 
@@ -79,7 +96,7 @@ export function updateTodo() {
     const { isLoading: isEditing, mutate: edit } = useMutation({
         mutationFn: editTodoAPI,
         onSuccess: () => {
-            toast.error('Todo update successfull');
+            toast.success('Todo update successfull');
             queryClient.invalidateQueries({
                 queryKey: ['todos']
             })

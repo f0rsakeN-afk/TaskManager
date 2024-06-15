@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import SingleTask from "./pages/SingleTask";
 import CreateTask from "./pages/CreateTask";
 import PageNotFound from "./pages/PageNotFound";
+import EditTask from "./pages/EditTask";
 
 const App = () => {
   const queryClient = new QueryClient({
@@ -30,6 +31,7 @@ const App = () => {
               <Route path="/home" element={<Home />} />
               <Route path="/singletask/:id" element={<SingleTask />} />
               <Route path="/createtask" element={<CreateTask />} />
+              <Route path="/edittask/:id" element={<EditTask />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>
