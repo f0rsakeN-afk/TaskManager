@@ -4,17 +4,15 @@ import DeleteTask from "./DeleteTask";
 import EditButton from "./EditButton";
 
 const Task = ({ task }) => {
-  const { title, description, priority, status, dueDate, createdAt, _id } = task;
+  const { title, description, priority, status, dueDate, createdAt, _id } =
+    task;
 
   // Format dates for better readability
   const formattedCreatedAt = new Date(createdAt).toLocaleDateString();
   const formattedDueDate = new Date(dueDate).toLocaleDateString();
 
   return (
-    <div
-      className="relative rounded-md border border-slate-400 p-4 shadow-md"
-    
-    >
+    <div className="relative rounded-md border border-slate-400 p-4 shadow-md">
       <h2 className="mb-2 text-2xl font-semibold text-orange-600">{title}</h2>
       <p className="mb-4 text-gray-700">{description}</p>
       <div className="mb-2">
@@ -32,8 +30,8 @@ const Task = ({ task }) => {
         <h3 className="text-red-600">Due Date: {formattedDueDate}</h3>
       </div>
       <div className=" absolute  bottom-4 right-4 flex gap-2">
-        <EditButton />
-        <DeleteTask />
+        <EditButton id={_id} />
+        <DeleteTask id={_id} />
       </div>
     </div>
   );
