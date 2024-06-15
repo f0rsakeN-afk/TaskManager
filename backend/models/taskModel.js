@@ -7,22 +7,22 @@ const taskSchema = new mongoose.Schema({
         unique: true,
         trim: true,
         minlength: [10, 'Title should be more than 10 characters'],
-        maxxlength: [50, 'Title should be less than 50 characters']
+        maxlength: [50, 'Title should be less than 50 characters']
     },
     description: {
-        trim: true,
         type: String,
-        required: [true, ' A task description is required']
+        required: [true, 'A task description is required'],
+        trim: true
     },
     dueDate: {
         type: Date,
-        required: [true, ' A task due date is required']
+        required: [true, 'A task due date is required']
     },
     priority: {
         type: String,
-        required: [true, ' A task priority is required'],
+        required: [true, 'A task priority is required'],
         enum: {
-            values: ['low,normal,medium,high'],
+            values: ['low', 'normal', 'medium', 'high'],
             message: 'Priority should be either low, normal, medium or high'
         }
     },
@@ -30,16 +30,16 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: [true, 'A task progress is required'],
         enum: {
-            values: ['pending,running,completed'],
+            values: ['pending', 'running', 'completed'],
             message: 'Status should be either pending, running or completed'
         }
     },
     createdAt: {
         type: Date,
-        default: new Date().toISOString()
+        default: Date.now
     }
-})
-
+});
 
 const Task = mongoose.model('tasks', taskSchema);
 module.exports = Task;
+
