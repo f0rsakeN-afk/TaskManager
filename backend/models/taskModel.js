@@ -5,7 +5,9 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: [true, 'A task title is required'],
         unique: true,
-        trim: true
+        trim: true,
+        minlength: [10, 'Title should be more than 10 characters'],
+        maxxlength: [50, 'Title should be less than 50 characters']
     },
     description: {
         trim: true,
@@ -19,11 +21,18 @@ const taskSchema = new mongoose.Schema({
     priority: {
         type: String,
         required: [true, ' A task priority is required'],
-        default: 'Normal'
+        enum: {
+            values: ['low,normal,medium,high'],
+            message: 'Priority should be either low, normal, medium or high'
+        }
     },
     status: {
         type: String,
-        required: [true, 'A task progress is required']
+        required: [true, 'A task progress is required'],
+        enum: {
+            values: ['pending,running,completed'],
+            message: 'Status should be either pending, running or completed'
+        }
     },
     createdAt: {
         type: Date,
