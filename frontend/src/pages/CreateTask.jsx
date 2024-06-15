@@ -1,18 +1,28 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
+import { createTodo } from "../services/Todo";
+import { useNavigate } from "react-router-dom";
 
 const CreateTask = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
+  const navigate = useNavigate();
+
+  const { isCreating, create } = createTodo();
 
   const onSubmit = (data) => {
-    //console.log(data);
-    
+    console.log(data);
+    create(data, {
+      onSuccess: () => {
+        navigate("/home");
+        reset();
+      },
+    });
   };
 
   return (
@@ -46,11 +56,16 @@ const CreateTask = () => {
 
         <Container>
           <Label text={"Priority"} />
-          <input
-            type="text"
+          <select
             {...register("priority", { required: true })}
             className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
-          />
+          >
+            <option value="">Select Priority</option>
+            <option value="low">Low</option>
+            <option value="normal">Normal</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
           {errors.priority && (
             <span className="text-sm text-red-500">This field is required</span>
           )}
@@ -58,11 +73,15 @@ const CreateTask = () => {
 
         <Container>
           <Label text={"Status"} />
-          <input
-            type="text"
+          <select
             {...register("status", { required: true })}
             className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
-          />
+          >
+            <option value=""> Select Status</option>
+            <option value="pending">Pending</option>
+            <option value="running">Running</option>
+            <option value="completed">Completed</option>
+          </select>
           {errors.status && (
             <span className="text-sm text-red-500">This field is required</span>
           )}
@@ -83,6 +102,7 @@ const CreateTask = () => {
         <button
           className="w-full rounded-md bg-blue-600 px-4 py-2 text-lg text-white hover:bg-blue-700 focus:bg-blue-800"
           type="submit"
+          disabled={isCreating}
         >
           Create Task
         </button>

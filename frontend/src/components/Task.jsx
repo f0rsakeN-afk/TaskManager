@@ -3,8 +3,8 @@ import { GiProgression } from "react-icons/gi";
 import DeleteTask from "./DeleteTask";
 import EditButton from "./EditButton";
 
-const Task = ({ t }) => {
-  const { title, description, priority, status, dueDate, createdAt, _id } = t;
+const Task = ({ task }) => {
+  const { title, description, priority, status, dueDate, createdAt, _id } = task;
 
   // Format dates for better readability
   const formattedCreatedAt = new Date(createdAt).toLocaleDateString();
@@ -13,7 +13,7 @@ const Task = ({ t }) => {
   return (
     <div
       className="relative rounded-md border border-slate-400 p-4 shadow-md"
-      key={t._id}
+    
     >
       <h2 className="mb-2 text-2xl font-semibold text-orange-600">{title}</h2>
       <p className="mb-4 text-gray-700">{description}</p>
