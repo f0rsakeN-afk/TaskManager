@@ -11,8 +11,14 @@ const Task = ({ task }) => {
   const formattedCreatedAt = new Date(createdAt).toLocaleDateString();
   const formattedDueDate = new Date(dueDate).toLocaleDateString();
 
+  const red = priority === "high";
+  const medium = priority === "medium";
+  const normal = priority === "normal";
+
   return (
-    <div className="relative rounded-md border border-slate-400 p-4 shadow-md">
+    <div
+      className={`relative rounded-md border border-slate-400 p-4 shadow-md ${red ? "bg-red-100" : ""} ${medium? 'bg-yellow-100':''} ${normal?"bg-green-100":""}`}
+    >
       <h2 className="mb-2 text-2xl font-semibold text-orange-600">{title}</h2>
       <p className="mb-4 text-gray-700">{description}</p>
       <div className="mb-2">

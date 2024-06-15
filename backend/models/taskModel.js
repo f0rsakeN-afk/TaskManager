@@ -16,7 +16,13 @@ const taskSchema = new mongoose.Schema({
     },
     dueDate: {
         type: Date,
-        required: [true, 'A task due date is required']
+        required: [true, 'A task due date is required'],
+        validate: {
+            validator: function (value) {
+                return value > Date.now();
+            },
+            message: 'Due date must be in the future'
+        }
     },
     priority: {
         type: String,
@@ -42,4 +48,3 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model('tasks', taskSchema);
 module.exports = Task;
-
