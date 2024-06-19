@@ -1,3 +1,6 @@
+**Note:** The backend of this project is hosted on Render, so server responses may be delayed by up to 50 seconds due to inactivity.
+
+
 # TaskHub
 
 TaskHub is a Todo application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It allows users to manage their tasks efficiently with features such as creating, reading, updating, and deleting tasks.
@@ -35,6 +38,17 @@ TaskHub is designed to provide a simple and intuitive interface for managing tas
 - Update tasks
 - Delete tasks
 - Real-time updates
+
+## Screenshots
+
+**Home**
+[!home](/frontend/src/assets/all.png)
+
+**Create**
+[!create](/frontend/src/assets/create.png)
+
+**Edit**
+[!edit](/frontend/src/assets/edit.png)
 
 ## Installation
 
